@@ -1,25 +1,26 @@
 package watcher;
 
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
+
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.FileContent;
@@ -141,7 +142,7 @@ public class GoogleDriveTest {
 		GoogleDrive.deleteFile(service, path);
 	}
 	
-	@Test
+	@Test (expected = FileNotFoundException.class)
 	public void uploadFileFailIntegrationTest() throws IOException, GeneralSecurityException {	
     	String APPLICATION_NAME = "Google Drive API Java Quickstart";
         JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
@@ -156,7 +157,7 @@ public class GoogleDriveTest {
 		assertEquals(GoogleDrive.findFileId(GoogleDrive.getAllFiles(service), path),"");
 	}
 	
-	@Test
+	@Test 
 	public void deleteFileIntegrationTest() throws GeneralSecurityException, IOException  {
 		String APPLICATION_NAME = "Google Drive API Java Quickstart";
         JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
