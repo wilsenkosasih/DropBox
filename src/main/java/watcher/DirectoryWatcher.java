@@ -62,7 +62,7 @@ public class DirectoryWatcher {
     
     public static void watchDirectory() throws IOException, GeneralSecurityException {
     	WatchService watcher = FileSystems.getDefault().newWatchService();
-		Path dir = Paths.get("/Users/wilsenkosasih/desktop/drive");
+		Path dir = Paths.get("./driveFolder");
 		WatchKey key = dir.register(watcher,
                 ENTRY_CREATE,
                 ENTRY_DELETE,

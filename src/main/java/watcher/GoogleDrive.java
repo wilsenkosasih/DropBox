@@ -32,7 +32,7 @@ public class GoogleDrive {
 		File fileMetadata = new File();
 		fileMetadata.setName(filename.toString());
 
-		java.io.File filePath = new java.io.File("/Users/wilsenkosasih/Desktop/drive/" + filename.toString());
+		java.io.File filePath = new java.io.File("./driveFolder/" + filename.toString());
 		FileContent mediaContent = new FileContent("*/*", filePath);
 		File file = service.files().create(fileMetadata, mediaContent).setFields("id").execute();
 
@@ -50,7 +50,7 @@ public class GoogleDrive {
 		File newfile = new File();
 		newfile.setName(filename.toString());
 
-		java.io.File filePath = new java.io.File("/Users/wilsenkosasih/Desktop/drive/" + filename);
+		java.io.File filePath = new java.io.File("./driveFolder/" + filename);
 		FileContent mediaContent = new FileContent("*/*", filePath);
 		File file = service.files().update(fileId, newfile, mediaContent).execute();
 

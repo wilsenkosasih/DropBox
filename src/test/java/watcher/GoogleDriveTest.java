@@ -122,7 +122,7 @@ public class GoogleDriveTest {
 	
 	@Test
 	public void uploadFileIntegrationTest() throws IOException, GeneralSecurityException {
-		String absoluteFilePath = "/Users/wilsenkosasih/desktop/Drive/upload.txt";
+		String absoluteFilePath = "./driveFolder/upload.txt";
         java.io.File file = new java.io.File(absoluteFilePath);
         file.createNewFile();    	
 
@@ -167,7 +167,7 @@ public class GoogleDriveTest {
                 .setApplicationName(APPLICATION_NAME)
                 .build();
         
-        String absoluteFilePath = "/Users/wilsenkosasih/desktop/Drive/delete.txt";
+        String absoluteFilePath = "./driveFolder/delete.txt";
         java.io.File file = new java.io.File(absoluteFilePath);
         file.createNewFile();  
         Path path = Paths.get("delete.txt");
@@ -205,7 +205,7 @@ public class GoogleDriveTest {
                 .setApplicationName(APPLICATION_NAME)
                 .build();
         
-        String absoluteFilePath = "/Users/wilsenkosasih/desktop/Drive/modify.txt";
+        String absoluteFilePath = "./driveFolder/modify.txt";
         java.io.File file = new java.io.File(absoluteFilePath);
         file.createNewFile();  
         Path path = Paths.get("modify.txt");
