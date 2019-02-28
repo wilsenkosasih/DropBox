@@ -16,7 +16,6 @@ public class GoogleDrive {
 		List<File> files = getAllFiles(service);
 
 		if (files == null || files.isEmpty()) {
-			System.out.println("No files found.");
 			return false;
 		}
 
@@ -36,8 +35,6 @@ public class GoogleDrive {
 		FileContent mediaContent = new FileContent("*/*", filePath);
 		File file = service.files().create(fileMetadata, mediaContent).setFields("id").execute();
 
-		System.out.println("File ID: " + file.getId());
-
 		return true;
 	}
 
@@ -53,8 +50,6 @@ public class GoogleDrive {
 		java.io.File filePath = new java.io.File("./driveFolder/" + filename);
 		FileContent mediaContent = new FileContent("*/*", filePath);
 		File file = service.files().update(fileId, newfile, mediaContent).execute();
-
-		System.out.println("File ID: " + file.getId());
 
 		return true;
 
