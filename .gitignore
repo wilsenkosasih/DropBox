@@ -4,9 +4,7 @@ build.gradle
 gradlew
 gradlew.bat
 settings.graddle
-credentials.json
 
 # Ignore Gradle build output directory
 build
-tokens
 target
