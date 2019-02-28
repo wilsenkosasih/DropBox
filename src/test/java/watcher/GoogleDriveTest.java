@@ -1,5 +1,6 @@
 package watcher;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
@@ -38,6 +39,19 @@ import org.powermock.modules.junit4.PowerMockRunner;
 @PowerMockIgnore({ "javax.net.ssl.*", "javax.security.*" })
 
 public class GoogleDriveTest {
+	Drive service;
+	
+	@Before
+	public void setup() throws GeneralSecurityException, IOException {
+		String APPLICATION_NAME = "Google Drive API Java Quickstart";
+        JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
+
+    	final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+        service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, DirectoryWatcher.getCredentials(HTTP_TRANSPORT))
+                .setApplicationName(APPLICATION_NAME)
+                .build();
+	}
+	
 	@PrepareForTest(File.class)
 	@Test
 	public void uploadFileUnitTest() throws IOException, GeneralSecurityException {
@@ -126,14 +140,14 @@ public class GoogleDriveTest {
         java.io.File file = new java.io.File(absoluteFilePath);
         file.createNewFile();    	
 
-    	String APPLICATION_NAME = "Google Drive API Java Quickstart";
+    	/*String APPLICATION_NAME = "Google Drive API Java Quickstart";
         JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 
     	final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, DirectoryWatcher.getCredentials(HTTP_TRANSPORT))
                 .setApplicationName(APPLICATION_NAME)
                 .build();
-    	
+    	*/
 		Path path = Paths.get("upload.txt");
 		assertTrue(GoogleDrive.uploadFile(service, path));
 		assertFalse(GoogleDrive.findFileId(GoogleDrive.getAllFiles(service), path).equals(""));
@@ -144,14 +158,7 @@ public class GoogleDriveTest {
 	
 	@Test (expected = FileNotFoundException.class)
 	public void uploadFileFailIntegrationTest() throws IOException, GeneralSecurityException {	
-    	String APPLICATION_NAME = "Google Drive API Java Quickstart";
-        JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
-
-    	final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-        Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, DirectoryWatcher.getCredentials(HTTP_TRANSPORT))
-                .setApplicationName(APPLICATION_NAME)
-                .build();
-    	
+    	    	
 		Path path = Paths.get("nonexistent.txt");
 		assertFalse(GoogleDrive.uploadFile(service, path));
 		assertEquals(GoogleDrive.findFileId(GoogleDrive.getAllFiles(service), path),"");
@@ -159,14 +166,14 @@ public class GoogleDriveTest {
 	
 	@Test 
 	public void deleteFileIntegrationTest() throws GeneralSecurityException, IOException  {
-		String APPLICATION_NAME = "Google Drive API Java Quickstart";
+		/*String APPLICATION_NAME = "Google Drive API Java Quickstart";
         JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 
 		final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, DirectoryWatcher.getCredentials(HTTP_TRANSPORT))
                 .setApplicationName(APPLICATION_NAME)
                 .build();
-        
+        */
         String absoluteFilePath = "./driveFolder/delete.txt";
         java.io.File file = new java.io.File(absoluteFilePath);
         file.createNewFile();  
@@ -182,14 +189,14 @@ public class GoogleDriveTest {
 	
 	@Test
 	public void deleteFileFailIntegrationTest() throws GeneralSecurityException, IOException  {
-		String APPLICATION_NAME = "Google Drive API Java Quickstart";
+		/*String APPLICATION_NAME = "Google Drive API Java Quickstart";
         JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 
 		final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, DirectoryWatcher.getCredentials(HTTP_TRANSPORT))
                 .setApplicationName(APPLICATION_NAME)
                 .build();
-        
+        */
         Path path = Paths.get("nonexistent.txt");
 		
 		assertFalse(GoogleDrive.deleteFile(service, path));        
@@ -197,14 +204,14 @@ public class GoogleDriveTest {
 	
 	@Test
 	public void modifyFileIntegrationTest() throws GeneralSecurityException, IOException  {
-		String APPLICATION_NAME = "Google Drive API Java Quickstart";
+		/*String APPLICATION_NAME = "Google Drive API Java Quickstart";
         JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 
 		final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, DirectoryWatcher.getCredentials(HTTP_TRANSPORT))
                 .setApplicationName(APPLICATION_NAME)
                 .build();
-        
+        */
         String absoluteFilePath = "./driveFolder/modify.txt";
         java.io.File file = new java.io.File(absoluteFilePath);
         file.createNewFile();  
@@ -220,14 +227,14 @@ public class GoogleDriveTest {
 	
 	@Test
 	public void modifyFileFailIntegrationTest() throws GeneralSecurityException, IOException  {
-		String APPLICATION_NAME = "Google Drive API Java Quickstart";
+		/*String APPLICATION_NAME = "Google Drive API Java Quickstart";
         JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 
 		final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, DirectoryWatcher.getCredentials(HTTP_TRANSPORT))
                 .setApplicationName(APPLICATION_NAME)
                 .build();
-        
+        */
         Path path = Paths.get("nonexistent.txt");
 		
 		assertFalse(GoogleDrive.modifyFile(service, path));

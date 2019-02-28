@@ -34,5 +34,13 @@ public class DirectoryWatcherTest {
 		    DirectoryWatcher.watchDirectory();
 		}*/
 	}
+	
+	@Test
+	public void watchDirectoryIntegrationTest() throws IOException, GeneralSecurityException {
+		for(int i = 1; i <= 2; i++) {
+			MultiThreading object = new MultiThreading(i);
+			object.start();
+		}
+	}
 
 }
