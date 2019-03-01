@@ -1,19 +1,14 @@
 package watcher;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.core.classloader.annotations.PowerMockIgnore;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-
+import static org.mockito.Mockito.when;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -23,6 +18,13 @@ import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
+
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.FileContent;
 import com.google.api.client.http.javanet.NetHttpTransport;
@@ -31,8 +33,6 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
-
-import org.powermock.modules.junit4.PowerMockRunner;
 
 @RunWith(PowerMockRunner.class)
 @PowerMockIgnore({ "javax.net.ssl.*", "javax.security.*" })
@@ -53,7 +53,7 @@ public class GoogleDriveTest {
 	
 	@PrepareForTest(File.class)
 	@Test
-	public void uploadFileUnitTest() throws IOException, GeneralSecurityException {
+	public void testUploadFile() throws IOException, GeneralSecurityException {
     	
 		Drive servicemock = mock(Drive.class);
 		Drive.Files mock2 = mock(Drive.Files.class);
@@ -74,7 +74,7 @@ public class GoogleDriveTest {
 		
 	@PrepareForTest(FileList.class)
 	@Test
-	public void deleteFileUnitTest() throws IOException, GeneralSecurityException {
+	public void testDeleteFile() throws IOException, GeneralSecurityException {
 		
 		Drive servicemock = mock(Drive.class);
 		Drive.Files mock2 = mock(Drive.Files.class);
@@ -92,7 +92,7 @@ public class GoogleDriveTest {
 	
 	@PrepareForTest(FileList.class)
 	@Test
-	public void modifyFileUnitTest() throws IOException, GeneralSecurityException {
+	public void testModifyFile() throws IOException, GeneralSecurityException {
 		/*
 		Drive servicemock = mock(Drive.class);
 		Drive.Files mock2 = mock(Drive.Files.class);
@@ -110,7 +110,7 @@ public class GoogleDriveTest {
 	}
 	
 	@Test
-	public void findFileIdTest()  {		
+	public void testfindFileId()  {		
 		java.util.List<File> files = new ArrayList<File>();
 				
 		Path path = Paths.get("a.txt");
@@ -119,7 +119,7 @@ public class GoogleDriveTest {
 	
 	@PrepareForTest(FileList.class)
 	@Test
-	public void getAllFilesTest() throws IOException {
+	public void testgetAllFiles() throws IOException {
 		Drive servicemock = mock(Drive.class);
 		Drive.Files mock2 = mock(Drive.Files.class);
 		Drive.Files.List mock3 = mock(Drive.Files.List.class);
@@ -134,7 +134,7 @@ public class GoogleDriveTest {
 	}
 	
 	@Test
-	public void uploadFileIntegrationTest() throws IOException, GeneralSecurityException {
+	public void testUploadFileIntegration() throws IOException, GeneralSecurityException {
 		String absoluteFilePath = "./driveFolder/upload.txt";
         java.io.File file = new java.io.File(absoluteFilePath);
         file.createNewFile();    	
@@ -148,7 +148,7 @@ public class GoogleDriveTest {
 	}
 	
 	@Test (expected = FileNotFoundException.class)
-	public void uploadFileFailIntegrationTest() throws IOException, GeneralSecurityException {	
+	public void testUploadFileFailIntegrationNoFile() throws IOException, GeneralSecurityException {	
     	    	
 		Path path = Paths.get("nonexistent.txt");
 		assertFalse(GoogleDrive.uploadFile(service, path));
@@ -179,10 +179,10 @@ public class GoogleDriveTest {
 	
 	@Test
 	public void modifyFileIntegrationTest() throws GeneralSecurityException, IOException  {
-        String absoluteFilePath = "./driveFolder/modify.txt";
+        String absoluteFilePath = "./driveFolder/modify2.txt";
         java.io.File file = new java.io.File(absoluteFilePath);
         file.createNewFile();  
-        Path path = Paths.get("modify.txt");
+        Path path = Paths.get("modify2.txt");
 		GoogleDrive.uploadFile(service, path);
 		
 		assertTrue(GoogleDrive.modifyFile(service, path));

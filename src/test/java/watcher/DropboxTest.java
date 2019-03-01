@@ -10,7 +10,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
-import static org.mockito.Matchers.*;
+
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -35,8 +35,8 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 public class DropboxTest {
 	@Test
-	public void mainTest() {
-		
+	public void testMain() throws IOException, GeneralSecurityException {
+    
 	}
 	
 }

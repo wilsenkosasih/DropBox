@@ -60,7 +60,7 @@ public class DirectoryWatcher {
     }
         
     
-    public static void watchDirectory() throws IOException, GeneralSecurityException {
+    public static int watchDirectory() throws IOException, GeneralSecurityException {
     	WatchService watcher = FileSystems.getDefault().newWatchService();
 		Path dir = Paths.get("./driveFolder");
 		WatchKey key = dir.register(watcher,
@@ -79,7 +79,7 @@ public class DirectoryWatcher {
 		    try {
 		        key = watcher.take();
 		    } catch (InterruptedException x) {
-		        return;
+		        return -1;
 		    }
 
 		    for (WatchEvent<?> event: key.pollEvents()) {
@@ -110,5 +110,7 @@ public class DirectoryWatcher {
 		        break;
 		    }
 		}
+		
+		return 1;
     }
 }
